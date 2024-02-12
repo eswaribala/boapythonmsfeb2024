@@ -33,6 +33,8 @@ python manage.py migrate
 #create super user
 python manage.py createsuperuser
 
+#finally run appication
+python manage.py runserver
 
 
 
