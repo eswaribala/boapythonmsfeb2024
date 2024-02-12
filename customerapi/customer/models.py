@@ -38,7 +38,7 @@ class Individual(Customer):
         choices=Gender.choices,
         default=Gender.MALE
     )
-    dob = models.DateField
+    dob = models.DateField(null=True)
 
 
 class CompanyType(models.TextChoices):
