@@ -20,3 +20,9 @@ python -m pip install drf-yasg
 python -m pip install setuptools
 django-admin startproject customer_api .
 django-admin startapp customer
+
+
+#run the project
+Finally run
+python manage.py runserver
+
