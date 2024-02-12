@@ -30,6 +30,9 @@ python manage.py runserver
 python manage.py makemigrations customer(app name where models are there)
 python manage.py migrate  
 
+#create super user
+python manage.py createsuperuser
+
 
 
 
