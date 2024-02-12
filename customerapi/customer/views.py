@@ -8,7 +8,6 @@ from customer.serializers import CustomerSerializer
 
 # Create your views here.
 
-
 @api_view(['GET', 'POST'])
 def customer_data(request):
     if request.method == 'GET':
