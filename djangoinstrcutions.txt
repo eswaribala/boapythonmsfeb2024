@@ -26,3 +26,10 @@ django-admin startapp customer
 Finally run
 python manage.py runserver
 
+#generating tables
+python manage.py makemigrations customer(app name where models are there)
+python manage.py migrate  
+
+
+
+
