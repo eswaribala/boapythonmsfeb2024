@@ -35,3 +35,14 @@ urlpatterns = [
     path('customers/v1.0/<int:pk>/', customer_parameterized_data),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
+
+
+import py_eureka_client.eureka_client as eureka_client
+import socket
+your_rest_server_port = 8000
+hostName = socket.gethostbyaddr('127.0.0.1')
+# The flowing code will register your server to eureka server and also start to send heartbeat every 30 seconds
+eureka_client.init(eureka_server="http://localhost:8761",
+                   app_name="Customer-App",
+                   instance_ip='localhost',
+                   instance_port=your_rest_server_port)

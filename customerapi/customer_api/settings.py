@@ -121,7 +121,7 @@
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'boacustomertestdb',
+#         'NAME': 'boacustomerdevdb',
 #         'USER': username,
 #         'PASSWORD': password,
 #         'HOST': 'localhost',  # Use 'localhost' if the database is on the same machine
