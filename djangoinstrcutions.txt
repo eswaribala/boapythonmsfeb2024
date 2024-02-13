@@ -50,7 +50,7 @@ python -m  pip install spring-config-client
 
 change environemnt
 #from dev env
-python manage.py runserver --settings=everyday_api.config.settings.dev
+python manage.py runserver --settings=customer_api.config.settings.dev
 
 
 
