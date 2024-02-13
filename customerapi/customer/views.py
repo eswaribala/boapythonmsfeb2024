@@ -47,3 +47,19 @@ def customer_data(request):
             }
             return Response(response_data, status=201)
         return Response(serializer.errors, status=400)
+
+
+api_view(["GET", "PUT", "DELETE"])
+
+
+def customer_parameterized_data(request, pk):
+    try:
+        customer = Customer.objects.get(pk=pk)
+    except Customer.DoesNotExist:
+        return Response(data={'The customer does not exist'}, status=400)
+
+    if request.method == 'GET':
+        serializer = CustomerSerializer(customer)
+        return Response(serializer.data)
+
+    
