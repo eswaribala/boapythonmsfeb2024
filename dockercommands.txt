@@ -1,0 +1,15 @@
+#pull mongo image
+
+docker pull mongo
+
+# to list images
+
+docker images
+
+# to create the mongo container
+
+  docker run --name=boa-mongo-c1 -p 27017:27017 -d mongo
+
+#to check the container
+
+  docker conatiner ls -a  
