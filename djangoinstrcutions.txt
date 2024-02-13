@@ -37,4 +37,7 @@ python manage.py createsuperuser
 python manage.py runserver
 
 
+#vault server
+
+python -m pip install hvac
 
