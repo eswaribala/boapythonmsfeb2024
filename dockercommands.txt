@@ -13,3 +13,6 @@ docker images
 #to check the container
 
   docker conatiner ls -a  
+#access mongodb server
+docker exec -it 3012c6dc62af /bin/bash
+#mongosh
