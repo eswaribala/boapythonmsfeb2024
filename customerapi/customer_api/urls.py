@@ -20,7 +20,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-from customer.views import customer_data
+from customer.views import customer_data, customer_parameterized_data
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Customer API",
@@ -31,5 +32,6 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('customers/v1.0/', customer_data),
+    path('customers/v1.0/<int:pk>/', customer_parameterized_data),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
