@@ -20,12 +20,23 @@ client = hvac.Client(
 )
 
 # Writing a secret
-create_response = client.secrets.kv.v2.create_or_update_secret(
-     path='mysqlsecret',
-     secret=dict(password='vignesh',username='root'),
- )
+#create_response = client.secrets.kv.v2.create_or_update_secret(
+     #path='mysqlsecretv1',
+    # secret=dict(password='vignesh',username='root'),
+# )
 
-print('Secret written successfully.')
+#print('Secret written successfully.')
+
+# Reading a secret
+read_response = client.secrets.kv.read_secret_version(path='mysqlsecret')
+username = read_response['data']['data']['username']
+password = read_response['data']['data']['password']
+
+if password != 'vignesh':
+    sys.exit('unexpected password')
+print(username)
+print(password)
+print('Access granted!')
 
 
 
@@ -111,8 +122,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'boacustomerdb',
-        'USER': 'root',
-        'PASSWORD': 'vignesh',
+        'USER': username,
+        'PASSWORD': password,
         'HOST': 'localhost',  # Use 'localhost' if the database is on the same machine
         'PORT': '3306',  # Typically 3306 for MySQL
     }
