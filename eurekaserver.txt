@@ -1,0 +1,1 @@
+docker run --name=boa-eureka --publish 8761:8761 -d steeltoeoss/eureka-server
