@@ -49,6 +49,26 @@ def customer_data(request):
         return Response(serializer.errors, status=400)
 
 
+@swagger_auto_schema(
+    methods=['put'],
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        required=['accountNo', 'firstName', 'middleName', 'lastName', 'contactNo', 'email', 'password'],
+        properties={
+            'accountNo': openapi.Schema(type=openapi.TYPE_NUMBER),
+            'firstName': openapi.Schema(type=openapi.TYPE_STRING),
+            'middleName': openapi.Schema(type=openapi.TYPE_STRING),
+            'lastName': openapi.Schema(type=openapi.TYPE_STRING),
+            'contactNo': openapi.Schema(type=openapi.TYPE_NUMBER),
+            'email': openapi.Schema(type=openapi.TYPE_STRING),
+            'password': openapi.Schema(type=openapi.TYPE_STRING),
+            # 'end_date': openapi.Schema(type=openapi.TYPE_STRING, default='yyyy-mm-dd'),
+
+        },
+    ),
+    operation_description='Update Customer',
+    responses={200: ""}
+)
 @api_view(["GET", "PUT", "DELETE"])
 def customer_parameterized_data(request, pk):
     try:
