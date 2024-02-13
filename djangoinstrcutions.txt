@@ -41,3 +41,17 @@ python manage.py runserver
 
 python -m pip install hvac
 
+
+
+Config Client
+
+python -m  pip install spring-config-client
+
+
+change environemnt
+#from dev env
+python manage.py runserver --settings=everyday_api.config.settings.dev
+
+
+
+
