@@ -62,4 +62,18 @@ def customer_parameterized_data(request, pk):
         serializer = CustomerSerializer(customer)
         return Response(serializer.data)
 
-    
+    elif request.method == 'PUT':
+        serializer = CustomerSerializer(customer, data=request.data)
+        if serializer.is_valid():
+            customer = serializer.save()
+            # Customize the response for a successful creation
+            response_data = {
+                'message': 'Customer updated successfully!',
+                'data': serializer.data,
+            }
+            return Response(response_data, status=201)
+        return Response(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        customer.delete()
+        return Response(data={'Customer Deleted Successfully'},status=200)
