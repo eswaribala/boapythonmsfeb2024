@@ -52,6 +52,7 @@ change environemnt
 #from dev env
 python manage.py runserver --settings=customer_api.config.settings.dev
 
-
+Eureka client
+python -m pip install py-eureka-client
 
 
