@@ -49,9 +49,7 @@ def customer_data(request):
         return Response(serializer.errors, status=400)
 
 
-api_view(["GET", "PUT", "DELETE"])
-
-
+@api_view(["GET", "PUT", "DELETE"])
 def customer_parameterized_data(request, pk):
     try:
         customer = Customer.objects.get(pk=pk)
@@ -76,4 +74,4 @@ def customer_parameterized_data(request, pk):
 
     elif request.method == 'DELETE':
         customer.delete()
-        return Response(data={'Customer Deleted Successfully'},status=200)
+        return Response(data={'Customer Deleted Successfully'}, status=200)
