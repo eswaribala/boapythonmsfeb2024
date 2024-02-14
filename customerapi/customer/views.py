@@ -140,15 +140,18 @@ password = read_response['data']['password']
 @api_view(["GET", "POST"])
 def account_data(request):
     api_url = os.getenv("api_url")
+    fallback_api_url=os.getenv("fallback_api_url")
     print(api_url)
     if request.method == 'GET':
-        response = fetch_account_api(api_url, retries=3, exceptions={'all': RETRY_EVENT})
+        response = fetch_account_api(api_url, retries=5, delay=5,  exceptions={'all': RETRY_EVENT})
         print(response)
         if response is None:
-            response_data = {
-                'message': 'Account API not available'
-            }
-            return Response(response_data, status=404)
+            response = fetch_account_api(fallback_api_url, retries=5, delay=5, exceptions={'all': RETRY_EVENT})
+            if response is None:
+                response_data = {
+                    'message': 'Account API not available'
+                }
+                return Response(response_data, status=404)
         return Response(response.json())
     elif request.method == 'POST':
         response = requests.post(api_url, auth=HTTPBasicAuth(username, password), json=request.data)
@@ -163,3 +166,4 @@ def account_data(request):
 @resilient_call(max_elapsed_time=2000)
 def fetch_account_api(url):
     return requests.get(url, auth=HTTPBasicAuth(username, password))
+
