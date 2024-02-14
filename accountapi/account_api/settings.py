@@ -97,7 +97,8 @@ DATABASES = {
         'NAME': 'boaaccountdb',
         'USER': 'root',
         'PASSWORD': 'vignesh',
-        'HOST': 'localhost',  # Use 'localhost' if the database is on the same machine
+        #'HOST': 'localhost',  # Use 'localhost' if the database is on the same machine
+         'HOST': 'boa_mysql',
         'PORT': '3306',  # Typically 3306 for MySQL
     }
 }
