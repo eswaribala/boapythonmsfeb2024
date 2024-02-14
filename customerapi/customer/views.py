@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -95,3 +96,41 @@ def customer_parameterized_data(request, pk):
     elif request.method == 'DELETE':
         customer.delete()
         return Response(data={'Customer Deleted Successfully'}, status=200)
+
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+@swagger_auto_schema(
+    methods=['post'],
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        required=['accountNo', 'runningTotal', 'openingDate'],
+        properties={
+            'accountNo': openapi.Schema(type=openapi.TYPE_NUMBER),
+            'runningTotal': openapi.Schema(type=openapi.TYPE_NUMBER),
+            'openingDate': openapi.Schema(type=openapi.TYPE_STRING, default='yyyy-mm-dd')
+            # 'end_date': openapi.Schema(type=openapi.TYPE_STRING, default='yyyy-mm-dd'),
+
+        },
+    ),
+    operation_description='Create Account',
+    responses={200: ""}
+)
+@api_view(["GET", "POST"])
+def account_data(request):
+    api_url = os.getenv("api_url")
+    if request.method == 'GET':
+        response = requests.get(api_url)
+        return Response(response.json())
+    elif request.method == 'POST':
+        response = requests.post(api_url, json=request.data)
+        # Customize the response for a successful creation
+        response_data = {
+            'message': 'Account created successfully!',
+            'data': response.json(),
+        }
+        return Response(response_data, status=201)
