@@ -1,5 +1,5 @@
 from packaging.metadata import Metadata
-from rest_framework import serializers
+from rest_framework import __
 
 from customer.models import Customer, Individual, Corporate
 

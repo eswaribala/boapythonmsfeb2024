@@ -74,9 +74,13 @@ WSGI_APPLICATION = 'account_api.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+     'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'boaaccountdb',
+        'USER': 'root',
+        'PASSWORD': 'vignesh',
+        'HOST': 'localhost',  # Use 'localhost' if the database is on the same machine
+        'PORT': '3306',  # Typically 3306 for MySQL
     }
 }
 
