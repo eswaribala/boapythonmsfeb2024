@@ -104,6 +104,22 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import hvac
+import sys
+
+# Authentication
+client = hvac.Client(
+    url='http://127.0.0.1:8200',
+    token='hvs.h4yQdfitEPcBeFzWH1o5VQFC',
+)
+
+# Reading a secret
+read_response = client.secrets.kv.read_secret_version(path='basicauth')
+username = read_response['data']['data']['username']
+password = read_response['data']['data']['password']
+
+
+
 
 @swagger_auto_schema(
     methods=['post'],
@@ -126,10 +142,10 @@ def account_data(request):
     api_url = os.getenv("api_url")
     print(api_url)
     if request.method == 'GET':
-        response = requests.get(api_url, auth=HTTPBasicAuth('eswaribala', 'vigneshbala'))
+        response = requests.get(api_url, auth=HTTPBasicAuth(username, password))
         return Response(response.json())
     elif request.method == 'POST':
-        response = requests.post(api_url, json=request.data)
+        response = requests.post(api_url, auth=HTTPBasicAuth(username, password),json=request.data)
         # Customize the response for a successful creation
         response_data = {
             'message': 'Account created successfully!',
