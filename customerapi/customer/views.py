@@ -2,6 +2,7 @@ import requests
 from django.shortcuts import render
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from requests.auth import HTTPBasicAuth
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -123,8 +124,9 @@ load_dotenv()
 @api_view(["GET", "POST"])
 def account_data(request):
     api_url = os.getenv("api_url")
+    print(api_url)
     if request.method == 'GET':
-        response = requests.get(api_url)
+        response = requests.get(api_url, auth=HTTPBasicAuth('eswaribala', 'vigneshbala'))
         return Response(response.json())
     elif request.method == 'POST':
         response = requests.post(api_url, json=request.data)
