@@ -66,4 +66,6 @@ Eureka client
 python -m pip install py-eureka-client
 #circuit breaker
 python -m pip install resilient-caller
+#inter service communication
+python -m pip install requests
 
