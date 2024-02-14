@@ -3,7 +3,7 @@ from django.shortcuts import render
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from requests.auth import HTTPBasicAuth
-from resilient_caller import resilient_call
+from resilient_caller import resilient_call, RETRY_EVENT
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -142,7 +142,13 @@ def account_data(request):
     api_url = os.getenv("api_url")
     print(api_url)
     if request.method == 'GET':
-        response = fetch_account_api(api_url, retries=3)
+        response = fetch_account_api(api_url, retries=3, exceptions={'all': RETRY_EVENT})
+        print(response)
+        if response is None:
+            response_data = {
+                'message': 'Account API not available'
+            }
+            return Response(response_data, status=404)
         return Response(response.json())
     elif request.method == 'POST':
         response = requests.post(api_url, auth=HTTPBasicAuth(username, password), json=request.data)
