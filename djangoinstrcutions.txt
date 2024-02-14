@@ -26,6 +26,16 @@ django-admin startapp customer
 Finally run
 python manage.py runserver
 
+Define the Customer model
+
+Configure the MySQL database  settings.py
+
+Create the API views and serializers
+
+ Register the app and REST framework in settings
+
+Configure the URLs
+
 #generating tables
 python manage.py makemigrations customer(app name where models are there)
 python manage.py migrate  
