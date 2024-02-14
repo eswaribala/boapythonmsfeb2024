@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'account_api.wsgi.application'
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'boaaccountdb',
+        'NAME': 'pyaccountdb2024',
         'USER': 'root',
         'PASSWORD': 'vignesh',
         #'HOST': 'localhost',  # Use 'localhost' if the database is on the same machine
