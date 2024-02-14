@@ -69,3 +69,5 @@ python -m pip install resilient-caller
 #inter service communication
 python -m pip install requests
 
+#env file
+pip install python-dotenv
