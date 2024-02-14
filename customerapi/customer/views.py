@@ -3,6 +3,7 @@ from django.shortcuts import render
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from requests.auth import HTTPBasicAuth
+from resilient_caller import resilient_call
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -115,10 +116,9 @@ client = hvac.Client(
 
 # Reading a secret
 read_response = client.secrets.kv.read_secret_version(path='basicauth')
-username = read_response['data']['data']['username']
-password = read_response['data']['data']['password']
-
-
+# print(read_response)
+username = read_response['data']['username']
+password = read_response['data']['password']
 
 
 @swagger_auto_schema(
@@ -142,13 +142,18 @@ def account_data(request):
     api_url = os.getenv("api_url")
     print(api_url)
     if request.method == 'GET':
-        response = requests.get(api_url, auth=HTTPBasicAuth(username, password))
+        response = fetch_account_api(api_url, retries=3)
         return Response(response.json())
     elif request.method == 'POST':
-        response = requests.post(api_url, auth=HTTPBasicAuth(username, password),json=request.data)
+        response = requests.post(api_url, auth=HTTPBasicAuth(username, password), json=request.data)
         # Customize the response for a successful creation
         response_data = {
             'message': 'Account created successfully!',
             'data': response.json(),
         }
         return Response(response_data, status=201)
+
+
+@resilient_call(max_elapsed_time=2000)
+def fetch_account_api(url):
+    return requests.get(url, auth=HTTPBasicAuth(username, password))
