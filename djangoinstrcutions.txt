@@ -50,8 +50,8 @@ python -m  pip install spring-config-client
 
 change environemnt
 #from dev env
-python manage.py runserver --settings=customer_api.config.settings.dev
-
+python manage.py runserver 8001 --settings=customer_api.config.settings.dev
+python manage.py runserver 8002 --settings=customer_api.config.settings.dev
 Eureka client
 python -m pip install py-eureka-client
 
