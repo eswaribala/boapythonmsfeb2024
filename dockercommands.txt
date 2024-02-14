@@ -16,3 +16,18 @@ docker images
 #access mongodb server
 docker exec -it 3012c6dc62af /bin/bash
 #mongosh
+
+
+#mysql testing
+
+docker container ls -a
+docker exec -it mysqlid bin/bash
+#mysql -p
+give the password
+#show databases;
+
+use pyaccountdb2024;
+show tables;
+
+
+
