@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: accountdeploy
+  name: accountdeploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: accountdeploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: accountdeploy
+    spec:
+      containers:
+      - image: eswaribala/boapythonmsfeb2024:accountapi
+        name: accountapp
+        command: ['/bin/bash']          
+        args: ['-c','python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000']  
+        resources: {}          
+        
+        env:
+          - name: DB_NAME
+            value: "pyaccountdb2024"
+          - name: MYSQL_HOST
+            value: "boamysql"
+          - name: MYSQL_ROOT_USER
+            value: "root"
+          - name: MYSQL_PORT
+            value: "3306"
+          - name: MYSQL_ROOT_PASSWORD
+            value: "vignesh"
+          #- name: FRONTEND
+            #value: "frontend-service"
+      #imagePullSecrets:  
+      #- name: globalaks-key
+
+status: {}
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: accountservice
+  name: accountservice
+spec:
+    
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    name: http
+  
+  selector:
+    app: accountdeploy
+  type: LoadBalancer
+
