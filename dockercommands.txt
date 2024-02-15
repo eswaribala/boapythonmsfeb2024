@@ -32,3 +32,12 @@ show tables;
 
 #create super user from container
 docker exec -it <accountserviceid>  python manage.py createsuperuser
+
+#push image from local to remote repository (Docker hub)
+docker login
+docker tag <image name> <dockerhubusername>/<respositoryname>:tagname
+docker push <dockerhubusername>/<respositoryname>:tagname
+
+
+
+
