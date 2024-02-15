@@ -71,3 +71,8 @@ python -m pip install requests
 
 #env file
 pip install python-dotenv
+
+#create super user from container
+docker exec -it 293238472c59  python manage.py createsuperuser
+
+
