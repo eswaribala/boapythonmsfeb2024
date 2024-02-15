@@ -1,0 +1,140 @@
+
+https://learn.microsoft.com/en-us/windows/wsl/install-manual
+
+https://phoenixnap.com/kb/install-kubernetes-on-ubuntu
+kubeadm init phase control-plane all --pod-network-cidr 10.244.0.0/16
+kubeadm join 172.20.0.189:6443 --token gxl17d.9v6tpu6k8z6k9h3c --discovery-token-ca-cert-hash sha256:09cc5cdf7aad002cde3dfd2c9e87c0705869af5197da6f5ac6793d7a4b088d37
+
+kubeadm join 172.20.0.189:6443 --token rrxuui.wl9zk3l4p1ywxnzf --discovery-token-ca-cert-hash sha256:09cc5cdf7aad002cde3dfd2c9e87c0705869af5197da6f5ac6793d7a4b088d37
+sudo kubeadm init --apiserver-advertise-address=172.20.0.189 --apiserver-cert-extra-sans=172.20.0.189 --pod-network-cidr=192.168.0.0/16 --node-name master-node
+
+kubeadm join 172.20.0.189:6443 --token 88ibam.21hoe6ora90j40k7 \
+	--discovery-token-ca-cert-hash sha256:2a643acd8b2dfa562752dac04e524b983505ca04521ec2c6246458a2bcf05069
+
+kubeadm join 172.20.0.189:6443 --token ec0xa4.48glrgpjbz7kllo3 \
+	--discovery-token-ca-cert-hash sha256:881569e33d66251b43e7ae2e3c40481184f495519200bbf4504d6d11975faf1c
+sudo kubeadm init --apiserver-advertise-address=172.105.148.95 --apiserver-cert-extra-sans=172.105.148.95 --pod-network-cidr=192.168.0.0/16 --node-name primary
+sudo kubeadm reset
+sudo apt-get install -qy kubelet kubectl kubeadm
+sudo apt-mark hold kubelet kubeadm kubectl
+sudo mkdir /etc/docker
+
+cat <<EOF | sudo tee /etc/docker/daemon.json
+{
+"exec-opts": ["native.cgroupdriver=systemd"],
+"log-driver": "json-file",
+"log-opts": {
+"max-size": "100m"
+},
+"storage-driver": "overlay2"
+}
+EOF
+sudo systemctl enable docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+sudo kubeadm init --control-plane-endpoint kube-master:6443 --pod-network-cidr=192.168.0.0/16
+kubeadm join 172.20.0.189:6443 --token gqrrfe.f00a3sl91u5ztvsl \
+	--discovery-token-ca-cert-hash sha256:925f8278455bbad7d5f72156d391d535a3a09db2d650b963cfa9d55623df55
+kubeadm join 172.20.0.189:6443 --token p24y53.979ymgbqf7uw0pzy --discovery-token-ca-cert-hash sha256:925f8278455bbad7d5f72156d391d535a3a09db2d650b963cfa9d55623df5533
+kubectl version
+kubectl cluster-info
+kubectl cluster-info dump
+kubectl api-resources
+#create kube cluster
+Step 1
+docker-desktop multi node cluster
+curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.10.0/kind-windows-amd64
+
+Step2
+copy .\kind-windows-amd64.exe d:\kube\kind.exe
+
+Step 3
+Go to cd d:\kube
+Step 4
+kind create cluster # Default cluster context name is `kind`.
+Step 5
+kind create cluster --name kind-2
+Step 6
+kind get clusters
+Step 7
+kubectl get cluster-info
+kubectl cluster-info --context kind-kind
+kubectl cluster-info --context kind-kind-2
+kind delete cluster --name kind
+
+kind create cluster --config "G:\Local disk\Docker\kind-example-config.yaml"
+
+
+Docker images can be loaded into your cluster nodes with:
+
+kind load docker-image my-custom-image-0 my-custom-image-1
+kind load docker-image my-custom-image-0 my-custom-image-1 --name kind-2
+You can get a list of images present on a cluster node by using docker exec:
+
+docker exec -it my-node-name crictl images
+
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+kubectl get all -n kubernetes-dashboard
+
+##########################################################alternative(kube version 1.22 onwards)
+
+kubectl create serviceaccount cluster-admin-dashboard -n kubernetes-dashboard
+
+
+kubectl create clusterrolebinding cluster-admin-dashboard  --clusterrole=cluster-admin --serviceaccount=kubernetes-dashboard:cluster-admin-dashboard -n kubernetes-dashboard
+
+kubectl create token cluster-admin-dashboard -n kubernetes-dashboard
+
+###################################################################
+
+kubectl apply -f dashboard-adminuser.yaml
+kubectl apply -f admin-role-binding.yml
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | sls admin-user | ForEach-Object { $_ -Split '\s+' } | Select -First 1)
+or
+
+kubectl get secret $(kubectl get serviceaccount dashboard -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 --decode
+
+or
+
+kubectl describe secret admin-user-token-7gtbr -n kubernetes-dashboard
+
+kubectl proxy
+
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+kubectl apply -f mysql-pv.yaml
+kubectl get pv
+kubectl get pvc
+kubectl apply -f mysql-deployment.yaml
+kubectl get pods
+kubectl get svc
+kubectl get deploy
+#mysql client creation
+kubectl run -it --rm --image=mysql --restart=Never mysql-client -- mysql -h mysql -ppassword
+#alternative approach to access mysql client
+kubectl exec -it mysql-app-7566c9cc95-7mldf bin/bash
+$mysql -p
+
+#third approach to access mysql client
+kubectl run -it --rm --image=mysql --restart=Never mysql-client -- mysql -h 10.1.0.34 -ppassword
+
+
+kubectl exec -it mongo-app-7559754fbf-n7mx4 /bin/bash
+kubectl apply -f deployment-v7.yml
+kubectl expose deployment --port 7070 customerapp --type=LoadBalancer --name=customerservicev1
+kubectl expose deployment --port 8090 --target-port 80 invapp --type=LoadBalancer --name=invservicev1
+#external ip pending then
+sudo microk8s kubectl patch svc traderservicev1  -p '{"spec": {"type": "LoadBalancer", "externalIPs":["172.22.0.1"]}}'
+#delete
+kubectl delete deploy mysql-app
+kubectl delete svc mysqlservice
+
+kubectl port-forward svc/customerservicev1 8060:7070
+kubectl scale --replicas=1 deployment customerapp
+
+az network public-ip create --resource-group  mc_vebgroup_vebcluster_southindia  --name Pixel-AKS-PIP --allocation-method static
+
+
+kubectl autoscale deployment customerapp --min=1 --max=4 --cpu-percent=20
+
+kubectl delete hpa ${name of hpa}
