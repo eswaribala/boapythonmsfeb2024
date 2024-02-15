@@ -73,6 +73,6 @@ python -m pip install requests
 pip install python-dotenv
 
 #create super user from container
-docker exec -it 293238472c59  python manage.py createsuperuser
+docker exec -it <accountserviceid>  python manage.py createsuperuser
 
 
