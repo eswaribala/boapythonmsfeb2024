@@ -30,4 +30,5 @@ use pyaccountdb2024;
 show tables;
 
 
-
+#create super user from container
+docker exec -it <accountserviceid>  python manage.py createsuperuser
