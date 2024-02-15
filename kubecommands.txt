@@ -107,6 +107,7 @@ kubectl get pv
 kubectl get pvc
 kubectl apply -f mysql-deployment.yaml
 kubectl get pods
+kubectl describe pod <name of the pod>
 kubectl get svc
 kubectl get deploy
 #mysql client creation
