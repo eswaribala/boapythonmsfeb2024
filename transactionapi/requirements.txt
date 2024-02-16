@@ -1,0 +1,13 @@
+django~=5.0.2
+djangorestframework~=3.14.0
+mysqlclient~=2.2.4
+django-rest-swagger~=2.2.0
+drf-yasg~=1.21.7
+setuptools~=69.1.0
+confluent-kafka
+python-dotenv
+bson
+elasticsearch
+elasticsearch-dsl
+django-elasticsearch-dsl
+django-prometheus
