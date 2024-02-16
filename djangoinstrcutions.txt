@@ -86,5 +86,6 @@ python -m pip install confluent-kafka
 add search module
 python manage.py startapp search
 python manage.py search_index --create
-
+or
+python manage.py search_index --rebuild
 
