@@ -8,7 +8,7 @@ from transaction.models import Transaction
 class TransactionDocument(Document):
 
     class Index:
-        name = "transactions"
+        name = "boatransactions2024"
         settings = {
             "number_of_shards": 1,
             "number_of_replicas": 0,
