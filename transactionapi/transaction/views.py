@@ -20,14 +20,13 @@ from rest_framework.response import Response
 from transaction.models import Transaction
 from transaction.serializers import TransactionSerializer
 
-
-
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-producer=kafka_configure()
+producer = kafka_configure()
+
 
 # Create your views here.
 @swagger_auto_schema(
