@@ -82,3 +82,8 @@ python -m pip install confluent-kafka
 
  python manage.py launch_queue_listener
 
+#elastic
+add search module
+python manage.py startapp search
+
+
