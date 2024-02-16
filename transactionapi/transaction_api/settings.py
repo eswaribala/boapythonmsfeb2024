@@ -68,6 +68,13 @@ REST_FRAMEWORK = {
     ],
 }
 
+ELASTICSEARCH_DSL = {
+    "default": {
+        "hosts": "http://host.docker.internal:9200",
+        # "http_auth": ("elastic", "YOUR_PASSWORD"),
+        # "ca_certs": "PATH_TO_http_ca.crt",
+    }
+}
 
 ROOT_URLCONF = 'transaction_api.urls'
 
