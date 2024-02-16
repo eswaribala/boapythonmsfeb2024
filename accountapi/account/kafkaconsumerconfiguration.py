@@ -1,10 +1,11 @@
+import os
 import sys
+import threading
 
-from confluent_kafka import KafkaError, KafkaException
+from confluent_kafka import KafkaError, KafkaException, Consumer
 from dotenv import load_dotenv
 
 load_dotenv()
-
 running = True
 
 
@@ -32,3 +33,35 @@ def basic_consume_loop(consumer):
 
 def shutdown():
     running = False
+
+
+def commit_completed(err, partitions):
+    if err:
+        print(str(err))
+    else:
+        print("Committed partition offsets: " + str(partitions))
+
+
+class TransactionListener(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        # Create consumer
+        # kafka:9092 - > kafka is advertised host name
+        conf = {'bootstrap.servers': 'kafka:9092',
+                'group.id': 'transaction',
+                'default.topic.config': {'auto.offset.reset': 'smallest'},
+                'on_commit': commit_completed}
+        self.consumer = Consumer(conf)
+
+    def run(self):
+        print('Inside Service :  Created Listener ')
+        try:
+            # Subcribe to topic
+            topic = os.getenv("topic")
+            print(topic)
+            self.consumer.subscribe([topic])
+            basic_consume_loop(self.consumer)
+
+        finally:
+            # Close down consumer to commit final offsets.
+            self.consumer.close()

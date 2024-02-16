@@ -9,3 +9,4 @@ py-eureka-client
 docker~=7.0.0
 py_eureka_client~=0.11.9
 confluent-kafka
+python-dotenv
