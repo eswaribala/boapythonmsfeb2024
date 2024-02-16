@@ -85,6 +85,7 @@ python -m pip install confluent-kafka
 #elastic
 add search module
 python manage.py startapp search
+#build search index from docker container
 python manage.py search_index --create
 or
 python manage.py search_index --rebuild
