@@ -4,7 +4,7 @@ from confluent_kafka import Producer
 
 
 def kafka_configure():
-    #KAFKA_ADVERTISED_HOST_NAME: kafka
+    # KAFKA_ADVERTISED_HOST_NAME: kafka
     conf = {'bootstrap.servers': 'kafka:9092',
             'client.id': socket.gethostname()}
 

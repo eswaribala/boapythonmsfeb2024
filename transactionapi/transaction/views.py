@@ -1,6 +1,8 @@
 import json
 import logging
 
+from transaction.kafkaproducerconfiguration import kafka_configure, acked
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -25,6 +27,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+producer=kafka_configure()
 
 # Create your views here.
 @swagger_auto_schema(
@@ -57,6 +60,11 @@ def transaction_data(request):
             transaction = serializer.save()
             jsonData = json.dumps(serializer.data)
 
+            producer.produce(os.getenv("topic"), key="key", value=jsonData, callback=acked)
+
+            # Wait up to 1 second for events. Callbacks will be invoked during
+            # this method call if the message is acknowledged.
+            producer.poll(1)
             # Customize the response for a successful creation
             response_data = {
                 'message': 'Transaction created successfully!',
