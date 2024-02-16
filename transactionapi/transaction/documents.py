@@ -4,7 +4,7 @@ from django_elasticsearch_dsl.registries import registry
 from transaction.models import Transaction
 
 
-@registry.register_document()
+@registry.register_document
 class TransactionDocument(Document):
 
     class Index:
