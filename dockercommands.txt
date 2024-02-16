@@ -38,7 +38,8 @@ docker login
 docker tag <image name> <dockerhubusername>/<respositoryname>:tagname
 docker push <dockerhubusername>/<respositoryname>:tagname
 
-
+#create network
+docker network create boanetwork
 
 
 
