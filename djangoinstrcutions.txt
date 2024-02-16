@@ -75,4 +75,5 @@ pip install python-dotenv
 #create super user from container
 docker exec -it <accountserviceid>  python manage.py createsuperuser
 
-
+#kafka library
+python -m pip install confluent-kafka
