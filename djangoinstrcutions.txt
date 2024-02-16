@@ -77,3 +77,8 @@ docker exec -it <accountserviceid>  python manage.py createsuperuser
 
 #kafka library
 python -m pip install confluent-kafka
+
+#backgraound thread for kafka consumer
+
+ python manage.py launch_queue_listener
+
