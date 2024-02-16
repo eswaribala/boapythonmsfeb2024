@@ -98,7 +98,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'vignesh',
         #'HOST': 'localhost',  # Use 'localhost' if the database is on the same machine
-         'HOST': 'boa_mysql',
+         'HOST': 'boamysql',
         'PORT': '3306',  # Typically 3306 for MySQL
     }
 }

@@ -1,6 +1,9 @@
+import socket
+
 from django.shortcuts import render
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from py_eureka_client import eureka_client
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -44,3 +47,5 @@ def account_data(request):
             }
             return Response(response_data, status=201)
         return Response(serializer.errors, status=400)
+
+

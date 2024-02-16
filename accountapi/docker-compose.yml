@@ -1,8 +1,9 @@
 version: '3'
 services:
+
   db:
     image: mysql:8
-    container_name: boa_mysql
+    container_name: boamysql
     restart: always
     volumes:
       - data:/var/lib/mysql
@@ -22,7 +23,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: account_api
+    container_name: accountapi
     command: sh -c "python3 manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"
     restart: always
     volumes:
@@ -34,5 +35,12 @@ services:
     depends_on:
       - db
           #condition: service_healthy
+
+
 volumes:
   data:
+
+networks:
+  default:
+    external:
+      name: boanetwork
