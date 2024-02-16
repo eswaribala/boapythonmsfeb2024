@@ -56,7 +56,7 @@ class TransactionListener(threading.Thread):
     def run(self):
         print('Inside Service :  Created Listener ')
         try:
-            # Subcribe to topic
+            # Subscribe to topic
             topic = os.getenv("topic")
             print(topic)
             self.consumer.subscribe([topic])
