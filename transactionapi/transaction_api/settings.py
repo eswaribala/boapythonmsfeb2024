@@ -24,7 +24,8 @@ SECRET_KEY = 'django-insecure-$82+@-8gqdt9@3f*po!p=s%39#l*041f*pr1+odt@xb(3djmin
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['172.19.48.1', 'localhost', '127.0.0.1', 'host.docker.internal']
+
 
 # Application definition
 
@@ -41,11 +42,12 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'drf_yasg',
     "django_elasticsearch_dsl",
+    'django_prometheus'
 
 ]
 
 MIDDLEWARE = [
-
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware'
 
 ]
 REST_FRAMEWORK = {
