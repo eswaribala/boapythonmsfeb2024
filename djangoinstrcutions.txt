@@ -85,5 +85,6 @@ python -m pip install confluent-kafka
 #elastic
 add search module
 python manage.py startapp search
+python manage.py search_index --create
 
 
