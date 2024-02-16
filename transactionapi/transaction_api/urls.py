@@ -22,6 +22,7 @@ from drf_yasg.views import get_schema_view
 
 from rest_framework import permissions
 
+from search.views import SearchTransaction
 from transaction.views import transaction_data
 
 schema_view = get_schema_view(
@@ -34,7 +35,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('transactions/v1.0/', transaction_data),
-
+    path("queries/<str:query>/", SearchTransaction.as_view()),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('', include('django_prometheus.urls')),
 ]
