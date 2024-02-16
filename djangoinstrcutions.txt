@@ -90,3 +90,55 @@ python manage.py search_index --create
 or
 python manage.py search_index --rebuild
 
+
+# jwt 
+
+python -m pip install djangorestframework_simplejwt
+python -m pip install --upgrade djangorestframework-simplejwt
+
+installed app
+'rest_framework_simplejwt.token_blacklist',
+
+
+
+obtain token
+
+http://127.0.0.1:8000/api/token/
+
+POST method
+
+body
+{
+
+    "username":"eswaribala",
+    "password":"vigneshbala"
+}
+
+Response
+
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwNzg0MTYzMiwiaWF0IjoxNzA3NzU1MjMyLCJqdGkiOiJhZjEwYzQyZGZkNjE0M2U1OWI3YmRiM2Y5ZGJjNzA0NyIsInVzZXJfaWQiOjF9.bARJJQX-47b6hR0a2EvjuHh3_hvTmk1uFQrSsml1BiI",
+    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3NzU1NTMyLCJpYXQiOjE3MDc3NTUyMzIsImp0aSI6ImFjZjAzMzhmOTc5NDRhODU4OWJiZDI4NWMwZmNmNTIxIiwidXNlcl9pZCI6MX0.EAHrup9K52O82ApgNXG_1AR2th0xmeTldtq1utM4q5g"
+}
+
+
+
+#use bearer token
+
+http://127.0.0.1:8000/hello
+
+bearer token
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzA3NzU1NTMyLCJpYXQiOjE3MDc3NTUyMzIsImp0aSI6ImFjZjAzMzhmOTc5NDRhODU4OWJiZDI4NWMwZmNmNTIxIiwidXNlcl9pZCI6MX0.EAHrup9K52O82ApgNXG_1AR2th0xmeTldtq1utM4q5g
+
+
+Refresh Token
+
+http://127.0.0.1:8000/api/token/refresh/ 
+post
+
+{
+"refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwNzg0MTYzMiwiaWF0IjoxNzA3NzU1MjMyLCJqdGkiOiJhZjEwYzQyZGZkNjE0M2U1OWI3YmRiM2Y5ZGJjNzA0NyIsInVzZXJfaWQiOjF9.bARJJQX-47b6hR0a2EvjuHh3_hvTmk1uFQrSsml1BiI"
+}
+
+
+
