@@ -39,7 +39,7 @@ Create the API views and serializers
  Register the app and REST framework in settings
 
 Configure the URLs
-
+pip install -r requirements.txt
 #generating tables
 python manage.py makemigrations customer(app name where models are there)
 python manage.py migrate  
