@@ -12,7 +12,9 @@ use pycharm
 make shell path windows cmd C:\Windows\system32\cmd.exe
 
 check activate virtualenv
-
+.\venv\Scripts\activate  # PowerShell or CMD
+It should show
+#(venv) PS E:\Python_Virtusa\flaskapp> 
 #mysql
 python -m pip install django djangorestframework mysqlclient
 #postgres
