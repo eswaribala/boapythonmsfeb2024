@@ -13,8 +13,12 @@ make shell path windows cmd C:\Windows\system32\cmd.exe
 
 check activate virtualenv
 
-
+#mysql
 python -m pip install django djangorestframework mysqlclient
+#postgres
+python -m pip install django djangorestframework
+python -m pip install psycopg2-binary
+
 python -m pip install django-rest-swagger
 python -m pip install drf-yasg
 python -m pip install setuptools
