@@ -82,8 +82,8 @@ python -m pip install requests
 pip install python-dotenv
 
 #create super user from container
-docker exec -it <accountserviceid>  python manage.py createsuperuser
-
+#docker exec -it <accountserviceid>  python manage.py createsuperuser
+docker exec -it backend python manage.py createsuperuser
 #kafka library
 python -m pip install confluent-kafka
 
